@@ -22,4 +22,4 @@ define('WARN', 2);
 define('CRITICAL', 3);
 define('ALL', 4);
 
-define('ERROR_LOG_LEVEL', INFO);
+define('ERROR_LOG_LEVEL', NONE);

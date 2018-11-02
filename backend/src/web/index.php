@@ -32,6 +32,13 @@ $router->post('/posts/create', function ( \App\Models\IRequest $request) {
 /**
  * For RESTFul API
  */
+$router->get('/api/v1/events', function ($request) {
+    header("Content-Type: application/json");
+    $controller = new \App\Controllers\EventController($request);
+    $result = $controller->index();
+    echo json_encode($result);;
+});
+
 $router->get('/api/v1/posts', function ($request) {
     header("Content-Type: application/json");
     $controller = new \App\Controllers\PostController($request);
