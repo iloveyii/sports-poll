@@ -62,7 +62,8 @@ class Vote extends Model
         event_id INT( 11 ) UNSIGNED,
         user_id INT( 11 ) UNSIGNED,
         winner_id INT( 11 ) UNSIGNED,
-        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY unique_vote_polled (event_id, user_id)
         );";
         return Database::connect()->exec($createTable);
     }
@@ -77,7 +78,9 @@ class Vote extends Model
     public function create() : bool
     {
         $query = sprintf("INSERT INTO %s (event_id, user_id, winner_id) 
-                                 VALUES (:event_id, :user_id, :winner_id)", $this->tableName);
+                                 VALUES (:event_id, :user_id, :winner_id)
+                                 ON DUPLICATE KEY UPDATE winner_id=:winner_id
+                                 ", $this->tableName);
         $params = [':event_id'=>$this->event_id, ':user_id'=>$this->user_id, ':winner_id'=>$this->winner_id];
         return Database::connect()->insert($query, $params);
     }
