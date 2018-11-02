@@ -31,19 +31,35 @@ abstract class Model
      */
     abstract public function rules() : array ;
     abstract public function setAttributes($attribues);
+    abstract public function createTable() : bool;
+    // CRUD
+    abstract public function create() : bool;
+    abstract public function read($id=null) : array;
+    abstract public function update() : bool;
 
+    /**
+     * Drops table
+     * @return bool
+     * @throws \Exception
+     */
     public function dropTable() : bool
     {
         $dropTable = "DROP TABLE IF EXISTS {$this->tableName}";
         return Database::connect()->exec($dropTable);
     }
 
-    abstract public function createTable() : bool;
-    // CRUD
-    abstract public function create() : bool;
-    abstract public function read($id=null) : array;
-    abstract public function update() : bool;
-    abstract public function delete() : bool;
+    /**
+     * Deletes the post with id
+     * @return bool
+     * @throws \Exception
+     */
+    public function delete() : bool
+    {
+        $query = sprintf("DELETE FROM %s WHERE id=:id", $this->tableName);
+        $params = [':id'=>$this->id];
+        $result = Database::connect()->delete($query, $params);
+        return $result;
+    }
 
     /**
      * @return bool

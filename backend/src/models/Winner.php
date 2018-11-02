@@ -52,9 +52,5 @@ class Winner extends Model
     {
         // TODO: Implement update() method.
     }
-    public function delete(): bool
-    {
-        // TODO: Implement delete() method.
-    }
 
 }

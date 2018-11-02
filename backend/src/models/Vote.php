@@ -121,17 +121,4 @@ class Vote extends Model
         return $result;
     }
 
-    /**
-     * Deletes the post with id in Request object
-     * @return bool
-     * @throws \Exception
-     */
-    public function delete() : bool
-    {
-        $query = sprintf("DELETE FROM %s WHERE id=:id", $this->tableName);
-        $params = [':id'=>$this->id];
-        $result = Database::connect()->delete($query, $params);
-        return $result;
-    }
-
 }
