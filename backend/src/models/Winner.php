@@ -23,22 +23,26 @@ class Winner extends Model
     {
         return [];
     }
-    public function setAttributes($attribues)
+    public function setAttributes($attributes)
     {
         $this->id = isset($attribues['id']) ?? null;
-        $this->name = $attribues['name'];
-        return true;
+        $this->name = $attributes['name'];
+        return $this;
     }
 
     public function createTable(): bool
     {
-        // TODO: Implement createTable() method.
+        $createTable = "CREATE TABLE $this->tableName(
+        id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        name CHAR( 10 ) );";
+        return Database::connect()->exec($createTable);
     }
 
     // CRUD
     public function create(): bool
     {
-        // TODO: Implement create() method.
+        $query = sprintf("INSERT INTO %s (name) VALUES (:name)", $this->tableName );
+        return Database::connect()->insert($query, [':name'=>$this->name]);
     }
     public function read($id = null): array
     {

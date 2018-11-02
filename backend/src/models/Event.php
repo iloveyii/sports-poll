@@ -97,14 +97,21 @@ class Event extends Model
     }
 
     // Abstract methods implemented
-    public function dropTable(): bool
-    {
-        // TODO: Implement dropTable() method.
-    }
-
     public function createTable(): bool
     {
-        // TODO: Implement createTable() method.
+        $sql = "CREATE TABLE $this->tableName(
+        id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        objectId CHAR( 10 ),
+        homeName VARCHAR( 80 ) NOT NULL,
+        awayName VARCHAR( 80 ) NOT NULL,
+        name VARCHAR( 180 ) NOT NULL,
+        groupName VARCHAR( 40 ) NOT NULL,
+        sport VARCHAR( 40 ) NOT NULL,
+        country VARCHAR( 40 ) NOT NULL,
+        state VARCHAR( 40 ) NOT NULL,
+        createdAt DATETIME NOT NULL);";
+
+        return Database::connect()->exec($sql);
     }
 
     // CRUD

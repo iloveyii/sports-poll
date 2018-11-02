@@ -8,45 +8,27 @@ use App\Models\Database;
  * Create table event and import all data from json file
  */
 $tableName = 'event';
-$dropTable = "DROP TABLE IF EXISTS {$tableName}";
-Database::connect()->exec($dropTable);
-
-$sql = "CREATE TABLE $tableName(
-  id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  objectId CHAR( 10 ),
-  homeName VARCHAR( 80 ) NOT NULL,
-  awayName VARCHAR( 80 ) NOT NULL,
-  name VARCHAR( 180 ) NOT NULL,
-  groupName VARCHAR( 40 ) NOT NULL,
-  sport VARCHAR( 40 ) NOT NULL,
-  country VARCHAR( 40 ) NOT NULL,
-  state VARCHAR( 40 ) NOT NULL,
-  createdAt DATETIME NOT NULL);";
-
-Database::connect()->exec($sql);
-print ("Created table $tableName. " . PHP_EOL);
-
-// Import JSON data
 $event = new \App\Models\Event();
+$event->dropTable();
+$event->createTable();
+printf ("Created table %s. " . PHP_EOL, $event->tableName);
+// Import JSON data
 $event->loadJsonFileToTable();
-print ("Imported json file to table $tableName. " . PHP_EOL);
+printf ("Imported json file to table %s. " . PHP_EOL, $event->tableName);
+echo PHP_EOL;
 
 /**
  * Create table winner and insert some data
  */
-$tableName = 'winner';
-$dropTable = "DROP TABLE IF EXISTS {$tableName}";
-Database::connect()->exec($dropTable);
-
-$createTable = "CREATE TABLE $tableName(
-  id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name CHAR( 10 ) );";
-Database::connect()->exec($createTable);
-print ("Created table $tableName. " . PHP_EOL);
-
-$insertData = "INSERT INTO $tableName (name) VALUES('home'),('draw'),('away')";
-Database::connect()->exec($insertData);
-print ("Inserted data into table $tableName. " . PHP_EOL);
+$winner = new \App\Models\Winner();
+$winner->dropTable();
+$winner->createTable() ;
+printf ("Created table %s. " . PHP_EOL, $winner->tableName);
+$winner->setAttributes(['name'=>'HOME'])->create();
+$winner->setAttributes(['name'=>'DRAW'])->create();
+$winner->setAttributes(['name'=>'AWAY'])->create();
+printf ("Inserted 3 rows into table %s. " . PHP_EOL, $winner->tableName);
+echo PHP_EOL;
 
 /**
  * Create table user and insert default user admin with pass admin
@@ -66,6 +48,7 @@ $hash = password_hash('admin', PASSWORD_BCRYPT);
 $insertData = "INSERT INTO $tableName (username, password) VALUES('admin', '{$hash}')";
 Database::connect()->exec($insertData);
 print ("Inserted data into table $tableName. " . PHP_EOL);
+echo PHP_EOL;
 
 /**
  * Create table vote
