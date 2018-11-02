@@ -8,7 +8,7 @@ $tableName = 'event';
 $dropTable = "DROP TABLE IF EXISTS {$tableName}";
 Database::connect()->exec($dropTable);
 
-$sql = "CREATE table $tableName(
+$sql = "CREATE TABLE $tableName(
   id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   objectId CHAR( 10 ),
   homeName VARCHAR( 80 ) NOT NULL,
@@ -27,5 +27,20 @@ print ("Created table $tableName. " . PHP_EOL);
 $event = new \App\Models\Event();
 $event->loadJsonFileToTable();
 print ("Imported json file to table $tableName. " . PHP_EOL);
+
+
+$tableName = 'winner';
+$dropTable = "DROP TABLE IF EXISTS {$tableName}";
+Database::connect()->exec($dropTable);
+
+$createTable = "CREATE TABLE $tableName(
+  id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name CHAR( 10 ) );";
+Database::connect()->exec($createTable);
+print ("Created table $tableName. " . PHP_EOL);
+
+$insertData = "INSERT INTO $tableName (name) VALUES('home'),('draw'),('away')";
+Database::connect()->exec($insertData);
+print ("Inserted data into table $tableName. " . PHP_EOL);
 
 
