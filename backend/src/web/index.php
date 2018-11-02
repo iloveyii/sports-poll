@@ -8,7 +8,7 @@ use App\Models\Request;
 /**
  * First create router object with params Request object and default route
  */
-$router = new Router(new Request, '/posts/index');
+$router = new Router(new Request, '/events/index');
 
 /**
  * Next declare the http methods
@@ -28,6 +28,17 @@ $router->post('/posts/create', function ( \App\Models\IRequest $request) {
     $controller->create();
 });
 
+
+$router->get('/events/index', function ($request) {
+    $controller = new \App\Controllers\EventController($request);
+    $controller->indexPage();
+});
+
+
+$router->post('/events/create', function ($request) {
+    $controller = new \App\Controllers\EventController($request);
+    $controller->create();
+});
 
 /**
  * For RESTFul API

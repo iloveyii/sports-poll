@@ -37,6 +37,7 @@ class Vote extends Model
         $this->user_id = $attributes['user_id'];
         $this->winner_id = $attributes['winner_id'];
         $this->isNewRecord = $this->id === null ? true : false;
+        return $this;
     }
 
     /**
