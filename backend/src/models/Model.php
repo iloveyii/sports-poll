@@ -16,9 +16,15 @@ abstract class Model
     protected $errors = [];
 
     /**
+     * @var mixed
+     */
+    protected $isNewRecord = null;
+
+    /**
      * @return array
      */
     abstract public function rules() : array ;
+
 
     /**
      * @return bool

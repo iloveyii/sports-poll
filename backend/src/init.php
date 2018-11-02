@@ -11,8 +11,8 @@ Database::connect()->exec($dropTable);
 $sql = "CREATE table $tableName(
   id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   objectId CHAR( 10 ),
-  awayName VARCHAR( 80 ) NOT NULL,
   homeName VARCHAR( 80 ) NOT NULL,
+  awayName VARCHAR( 80 ) NOT NULL,
   name VARCHAR( 180 ) NOT NULL,
   groupName VARCHAR( 40 ) NOT NULL,
   sport VARCHAR( 40 ) NOT NULL,
@@ -22,4 +22,10 @@ $sql = "CREATE table $tableName(
 
 Database::connect()->exec($sql);
 print ("Created table $tableName. " . PHP_EOL);
+
+// Import JSON data
+$event = new \App\Models\Event();
+$event->loadJsonFileToTable();
+print ("Imported json file to table $tableName. " . PHP_EOL);
+
 

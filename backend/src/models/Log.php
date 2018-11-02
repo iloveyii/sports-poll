@@ -37,6 +37,8 @@ class Log
         if($level === ERROR_LOG_LEVEL || ERROR_LOG_LEVEL === ALL) {
             return self::writeToFile($message, $level);
         }
+
+        return false;
     }
 
     /**
