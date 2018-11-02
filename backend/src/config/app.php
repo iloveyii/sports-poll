@@ -6,6 +6,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 /**
+ * We insert a dummy row in table vote for user 1 (admin)
+ * Set to true if you want no dummy data
+ */
+define('NO_DUMMY_DATA', false);
+
+/**
  * Set DB credentials here
  */
 define('DB_HOST', 'localhost');

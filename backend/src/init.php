@@ -78,8 +78,14 @@ $createTable = "CREATE TABLE $tableName(
   id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   event_id INT( 11 ) UNSIGNED,
   user_id INT( 11 ) UNSIGNED,
-  winning_id INT( 11 ) UNSIGNED,
-  createdAt DATETIME NOT NULL
+  winner_id INT( 11 ) UNSIGNED,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
   );";
 Database::connect()->exec($createTable);
 print ("Created table $tableName. " . PHP_EOL);
+
+$insertData = "INSERT INTO $tableName (event_id, user_id, winner_id) VALUES (1, 1, 1)";
+if(! NO_DUMMY_DATA) {
+    Database::connect()->exec($insertData);
+    print ("Inserted 1 dummy row in table $tableName" . PHP_EOL);
+}
