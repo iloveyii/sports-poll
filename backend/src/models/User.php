@@ -3,20 +3,19 @@
 namespace App\Models;
 
 
-class Vote extends Model
+class User extends Model
 {
     /**
      * @var null|int
      */
     public $id;
-    public $event_id;
-    public $user_id;
-    public $winner_id;
+    public $username;
+    public $password;
 
     /**
      * @var string
      */
-    public $tableName = 'vote';
+    public $tableName = 'user';
 
 
     /**
@@ -27,16 +26,17 @@ class Vote extends Model
     }
 
     /**
-     * Pass request object to this method to set the object attributes
-     * @param array $attributes
+     * Set the attributes from the passed associate array
+     * @param $attributes
+     * @return $this
      */
     public function setAttributes($attributes)
     {
         $this->id = isset($attributes['id'])  ? $attributes['id'] : null;
-        $this->event_id = $attributes['event_id'];
-        $this->user_id = $attributes['user_id'];
-        $this->winner_id = $attributes['winner_id'];
+        $this->username = $attributes['username'];
+        $this->password = $attributes['password'];
         $this->isNewRecord = $this->id === null ? true : false;
+        return $this;
     }
 
     /**
@@ -53,15 +53,12 @@ class Vote extends Model
     }
 
     // Abstract methods
-
     public function createTable(): bool
     {
         $createTable = "CREATE TABLE $this->tableName(
         id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        event_id INT( 11 ) UNSIGNED,
-        user_id INT( 11 ) UNSIGNED,
-        winner_id INT( 11 ) UNSIGNED,
-        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+        username CHAR( 10 ), 
+        password CHAR( 60 )
         );";
         return Database::connect()->exec($createTable);
     }
@@ -75,9 +72,9 @@ class Vote extends Model
      */
     public function create() : bool
     {
-        $query = sprintf("INSERT INTO %s (event_id, user_id, winner_id) 
-                                 VALUES (:event_id, :user_id, :winner_id)", $this->tableName);
-        $params = [':event_id'=>$this->event_id, ':user_id'=>$this->user_id, ':winner_id'=>$this->winner_id];
+        $query = sprintf("INSERT INTO %s (username, password) 
+                                 VALUES (:username, :password)", $this->tableName);
+        $params = [':username'=>$this->username, ':password'=>password_hash($this->password, PASSWORD_BCRYPT)];
         return Database::connect()->insert($query, $params);
     }
 
