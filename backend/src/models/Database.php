@@ -12,8 +12,8 @@ final class Database
     public $lastId;
 
     /**
-     * This is a singleton pattern
      * @return Database
+     * @throws \Exception
      */
     public static function connect()
     {

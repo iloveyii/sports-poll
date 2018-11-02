@@ -102,6 +102,7 @@ class Event extends Model
     /**
      * Creates a db post record
      * @return bool
+     * @throws \Exception
      */
     public function create() : bool
     {
@@ -115,18 +116,43 @@ class Event extends Model
     /**
      * Reads all posts from db into associative array
      * @return array
+     * @throws \Exception
      */
     public function readAll() : array
     {
-        $query = sprintf("SELECT id, title, description AS author, title AS filename, title AS artist FROM %s", $this->tableName);
+        $query = sprintf("SELECT * FROM %s", $this->tableName);
         $rows = Database::connect()->selectAll($query, []);
 
         return $rows;
     }
 
+    public function readColumnAll($columnName) : array
+    {
+        $query = sprintf("SELECT %s FROM %s", $columnName, $this->tableName);
+        $rows = Database::connect()->selectAll($query, []);
+        return $rows;
+    }
+
+    public function getRandomGroupName()
+    {
+        $rand = sprintf("SELECT %s FROM %s ORDER BY RAND() LIMIT 1", 'groupName', $this->tableName);
+        $rows = Database::connect()->selectAll($rand, []);
+
+        return $rows[0]['groupName'];
+    }
+
+    public function readAllByRandomGroupName()
+    {
+        $randomGroupName = $this->getRandomGroupName();
+        $query = sprintf("SELECT * FROM %s WHERE groupName=:groupName", $this->tableName);
+        $params = [':groupName'=>$randomGroupName];
+        $rows = Database::connect()->selectAll($query, $params);
+        return $rows;
+    }
     /**
      * Updates the given record in DB using id in Request object
      * @return bool
+     * @throws \Exception
      */
     public function update() : bool
     {
@@ -140,6 +166,7 @@ class Event extends Model
     /**
      * Deletes the post with id in Request object
      * @return bool
+     * @throws \Exception
      */
     public function delete() : bool
     {

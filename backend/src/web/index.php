@@ -39,23 +39,9 @@ $router->get('/api/v1/events', function ($request) {
     echo json_encode($result);;
 });
 
-$router->get('/api/v1/posts', function ($request) {
+$router->get('/api/v1/random', function ($request) {
     header("Content-Type: application/json");
-    $controller = new \App\Controllers\PostController($request);
-    $result = $controller->indexJson();
+    $controller = new \App\Controllers\EventController($request);
+    $result = $controller->random();
     echo json_encode($result);;
-});
-
-$router->put('/api/v1/posts/:id', function ($request) {
-    header("Content-Type: application/json");
-    $controller = new \App\Controllers\PostController($request);
-    $result = $controller->update();
-    echo json_encode($result);
-});
-
-$router->delete('/api/v1/posts/:id', function ($request) {
-    header("Content-Type: application/json");
-    $controller = new \App\Controllers\PostController($request);
-    $result = $controller->delete();
-    echo json_encode($result);
 });
