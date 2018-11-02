@@ -32,8 +32,7 @@ class Event extends Model
     /**
      * @var string
      */
-    private $tableName = 'event';
-
+    public $tableName = 'event';
 
     /**
      * Post constructor.

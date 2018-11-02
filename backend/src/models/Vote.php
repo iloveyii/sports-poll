@@ -16,7 +16,7 @@ class Vote extends Model
     /**
      * @var string
      */
-    private $tableName = 'vote';
+    public $tableName = 'vote';
 
 
     /**
@@ -55,11 +55,20 @@ class Vote extends Model
     // Abstract methods
     public function dropTable(): bool
     {
-        // TODO: Implement dropTable() method.
+        $dropTable = "DROP TABLE IF EXISTS {$this->tableName}";
+        return Database::connect()->exec($dropTable);
     }
+
     public function createTable(): bool
     {
-        // TODO: Implement createTable() method.
+        $createTable = "CREATE TABLE $this->tableName(
+        id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        event_id INT( 11 ) UNSIGNED,
+        user_id INT( 11 ) UNSIGNED,
+        winner_id INT( 11 ) UNSIGNED,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+        );";
+        return Database::connect()->exec($createTable);
     }
 
     // CRUD

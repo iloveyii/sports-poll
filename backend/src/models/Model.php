@@ -11,6 +11,11 @@ namespace App\Models;
 abstract class Model
 {
     /**
+     * @var string $tableName
+     */
+    public $tableName;
+
+    /**
      * @var array
      */
     protected $errors = [];
@@ -25,8 +30,14 @@ abstract class Model
      * @return array
      */
     abstract public function rules() : array ;
+    abstract public function setAttributes($attribues);
 
-    abstract public function dropTable() : bool;
+    public function dropTable() : bool
+    {
+        $dropTable = "DROP TABLE IF EXISTS {$this->tableName}";
+        return Database::connect()->exec($dropTable);
+    }
+
     abstract public function createTable() : bool;
     // CRUD
     abstract public function create() : bool;
