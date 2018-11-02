@@ -9,7 +9,7 @@ ini_set('display_errors', 1);
  * Set DB credentials here
  */
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'alip');
+define('DB_NAME', 'glom');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
 
