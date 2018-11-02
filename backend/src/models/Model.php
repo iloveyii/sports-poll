@@ -21,10 +21,18 @@ abstract class Model
     protected $isNewRecord = null;
 
     /**
+     * These are data validation rules
      * @return array
      */
     abstract public function rules() : array ;
 
+    abstract public function dropTable() : bool;
+    abstract public function createTable() : bool;
+    // CRUD
+    abstract public function create() : bool;
+    abstract public function read($id=null) : array;
+    abstract public function update() : bool;
+    abstract public function delete() : bool;
 
     /**
      * @return bool

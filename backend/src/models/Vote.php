@@ -52,6 +52,16 @@ class Vote extends Model
         ];
     }
 
+    // Abstract methods
+    public function dropTable(): bool
+    {
+        // TODO: Implement dropTable() method.
+    }
+    public function createTable(): bool
+    {
+        // TODO: Implement createTable() method.
+    }
+
     // CRUD
 
     /**
@@ -69,13 +79,20 @@ class Vote extends Model
 
     /**
      * Reads all posts from db into associative array
+     * @param null | integer $id
      * @return array
      * @throws \Exception
      */
-    public function readAll() : array
+    public function read( $id = null) : array
     {
         $query = sprintf("SELECT * FROM %s", $this->tableName);
-        $rows = Database::connect()->selectAll($query, []);
+        $params = [];
+
+        if($id !== null) {
+            $query = sprintf("SELECT * FROM %s WHERE id=:id", $this->tableName);
+            $params = [':id'=>$id];
+        }
+        $rows = Database::connect()->selectAll($query, $params);
 
         return $rows;
     }

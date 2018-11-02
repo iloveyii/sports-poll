@@ -97,6 +97,17 @@ class Event extends Model
         ];
     }
 
+    // Abstract methods implemented
+    public function dropTable(): bool
+    {
+        // TODO: Implement dropTable() method.
+    }
+
+    public function createTable(): bool
+    {
+        // TODO: Implement createTable() method.
+    }
+
     // CRUD
 
     /**
@@ -111,6 +122,11 @@ class Event extends Model
         $params = [':objectId'=>$this->objectId, ':homeName'=>$this->homeName, ':awayName'=>$this->awayName, ':name'=>$this->name,
                     ':groupName'=>$this->groupName, ':sport'=>$this->sport, ':country'=>$this->country, ':state'=>$this->state, ':createdAt'=>$this->createdAt];
         return Database::connect()->insert($query, $params);
+    }
+
+    public function read($id = null): array
+    {
+        // TODO: Implement read() method.
     }
 
     /**
