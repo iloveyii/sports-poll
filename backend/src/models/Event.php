@@ -8,6 +8,7 @@ class Event extends Model
     const DATA_DIR = 'data';
     const JSON_FILE = 'test-assignment.json';
     const CATEGORY_COLUMN_NAME = 'sport';
+    const REPEAT_CATEGORY_POLL = true;
 
     /**
      * @var null|int
@@ -182,7 +183,8 @@ class Event extends Model
                                  LEFT JOIN 
                                  ( SELECT event_id, user_id, winner_id FROM vote WHERE user_id = %d ) t1
                                  ON event.id = t1.event_id
-                                 WHERE %s=:categoryName ORDER BY name", self::CATEGORY_COLUMN_NAME, $this->tableName, $userId, self::CATEGORY_COLUMN_NAME);
+                                 WHERE %s=:categoryName %s ORDER BY name",
+            self::CATEGORY_COLUMN_NAME, $this->tableName, $userId, self::CATEGORY_COLUMN_NAME, self::REPEAT_CATEGORY_POLL ? '' : ' AND user_id is null ');
         $params = [':categoryName' => $randomCategoryName];
         $rows = Database::connect()->selectAll($query, $params);
         return $rows;

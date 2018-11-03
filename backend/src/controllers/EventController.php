@@ -25,7 +25,11 @@ class EventController extends Controller
         }
         $model = new Event();
         $events = $model->readAllByRandomCategoryName($_SESSION['user_id']);
-        $this->render('index', $events);
+        if(count($events) > 0 ) {
+            $this->render('index', $events);
+        } else {
+            $this->render('thanks', []);
+        }
     }
 
     /**

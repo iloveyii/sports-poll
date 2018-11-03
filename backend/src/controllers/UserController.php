@@ -14,11 +14,14 @@ class UserController extends Controller
     }
 
     /**
-     * Returns the form page for new post entry
-     * It the HTTP request is a post then it save it to DB
-     * And redirects to index page
+     * Returns the form page for new user sign up
+     * It the HTTP request is a post then it save it to DB and tries to login user
+     * If user could not be logged in then redirects login page
+     * If any errors in the model then shows the same form with errors
+     * @return bool
+     * @throws \Exception
      */
-    public function create() : string
+    public function create() : bool
     {
         $model = new User();
         $attributes = $this->request->body();
@@ -33,7 +36,7 @@ class UserController extends Controller
             }
         }
 
-        $this->render('create', $model);
+        return $this->render('create', $model);
     }
 
     /**

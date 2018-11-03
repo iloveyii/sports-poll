@@ -15,7 +15,7 @@ include_once "{$dirPath}/layout/navbar.php";
         <div class="col-md-12">
             <h2>List of events</h2>
             <br />
-            <h4 id="event"><?=$model[0]['categoryName']?></h4>
+            <h4 id="event"><?= isset($model[0]) ? $model[0]['categoryName'] : 'Poll finished'?></h4>
         </div>
     </div>
 
