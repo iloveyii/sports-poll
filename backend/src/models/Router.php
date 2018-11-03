@@ -72,6 +72,7 @@ class Router
      *
      * @param $route
      * @param $method
+     * @throws \Exception
      */
     public function post($route, $method)
     {
@@ -85,6 +86,7 @@ class Router
         if($route === $redirectUrl && $this->request->requestMethod === 'POST') {
             $this->pathNotFound = false;
             call_user_func_array($method, [$this->request]);
+            Log::write('Found route ' . $route, INFO);
             exit(0);
         }
     }
@@ -159,6 +161,8 @@ class Router
     public function __destruct()
     {
         if($this->pathNotFound) {
+            Log::write('Did not find route ' . $this->request->redirectUrl, WARN);
+
             $result = $this->renderDefaultRoute();
             if($result === false) {
                 header("{$this->request->serverProtocol} 404 Not Found");
