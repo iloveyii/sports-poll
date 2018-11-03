@@ -166,7 +166,11 @@ class Event extends Model
     public function readAllByRandomGroupName()
     {
         $randomGroupName = $this->getRandomGroupName();
-        $query = sprintf("SELECT * FROM %s WHERE groupName=:groupName", $this->tableName);
+        $query = sprintf("SELECT * FROM %s 
+                                 LEFT JOIN 
+                                 ( SELECT event_id, user_id, winner_id FROM vote WHERE user_id = %d ) t1
+                                 ON event.id = t1.event_id
+                                 WHERE groupName=:groupName", $this->tableName, 1);
         $params = [':groupName'=>$randomGroupName];
         $rows = Database::connect()->selectAll($query, $params);
         return $rows;

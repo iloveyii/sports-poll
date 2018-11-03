@@ -42,9 +42,9 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h2>List of posts</h2>
+            <h2>List of events</h2>
             <br />
-            <div id="post"></div>
+            <h4 id="event"><?=$model[0]['groupName']?></h4>
         </div>
     </div>
 
@@ -65,9 +65,9 @@
                     <?php foreach ($model as $event) : ?>
                     <tr>
                         <td><?=$event['name']?></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="home"></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="draw"></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="away"></td>
+                        <td><input type="radio" name="radio_<?=$event['id']?>" value="home" <?=isset($event['winner_id']) && $event['winner_id']==1 ? 'checked' : ''?>></td>
+                        <td><input type="radio" name="radio_<?=$event['id']?>" value="draw" <?=isset($event['winner_id']) && $event['winner_id']==2 ? 'checked' : ''?>></td>
+                        <td><input type="radio" name="radio_<?=$event['id']?>" value="away" <?=isset($event['winner_id']) && $event['winner_id']==3 ? 'checked' : ''?>></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
