@@ -72,6 +72,7 @@ class Event extends Model
             $model->setAttributes($event);
             $model->create();
         }
+        return count($events);
     }
 
     private function readJsonFile()

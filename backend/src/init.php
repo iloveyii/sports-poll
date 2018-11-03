@@ -5,14 +5,13 @@ require_once 'config/app.php';
 /**
  * Create table event and import all data from json file
  */
-$tableName = 'event';
 $event = new \App\Models\Event();
 $event->dropTable();
 $event->createTable();
 printf ("Created table %s. " . PHP_EOL, $event->tableName);
 // Import JSON data
-$event->loadJsonFileToTable();
-printf ("Imported json file to table %s. " . PHP_EOL, $event->tableName);
+$num = $event->loadJsonFileToTable();
+printf ("Imported %d rows from JSON file to table %s. " . PHP_EOL, $num, $event->tableName);
 echo PHP_EOL;
 
 /**
@@ -37,7 +36,7 @@ $user->createTable();
 printf ("Created table %s. " . PHP_EOL, $user->tableName);
 $attributes = ['username'=>'admin', 'password'=>'admin'];
 $user->setAttributes($attributes)->create();
-printf ("Inserted data into table %s. " . PHP_EOL, $user->tableName);
+printf ("Inserted admin user into table %s. " . PHP_EOL, $user->tableName);
 echo PHP_EOL;
 
 /**
@@ -48,9 +47,8 @@ $vote->dropTable();
 $vote->createTable();
 printf("Created table %s. " . PHP_EOL, $vote->tableName);
 $attributes = ['event_id'=>1, 'user_id'=>1, 'winner_id'=>1];
-$vote->setAttributes($attributes);
 if(! NO_DUMMY_DATA) {
-    $vote->create();
+    $vote->setAttributes($attributes)->create();
     printf("Inserted 1 dummy row in table %s. " . PHP_EOL, $vote->tableName);
 }
 
