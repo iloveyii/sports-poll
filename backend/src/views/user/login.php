@@ -42,37 +42,51 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h2>List of events</h2>
             <br />
-            <h4 id="event"><?=$model[0]['groupName']?></h4>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <br />
-            <form action="/events/create" method="post">
-                <table class="table table-hover" id="posts-index-table">
-                <thead>
-                <tr>
-                    <th>Event</th>
-                    <th>Home Wins</th>
-                    <th>Draw</th>
-                    <th>Away Wins</th>
-                </tr>
-                </thead>
-                <tbody class="post-index">
-                    <?php foreach ($model as $event) : ?>
-                    <tr>
-                        <td><?=$event['name']?></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="home" <?=isset($event['winner_id']) && $event['winner_id']==1 ? 'checked' : ''?>></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="draw" <?=isset($event['winner_id']) && $event['winner_id']==2 ? 'checked' : ''?>></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="away" <?=isset($event['winner_id']) && $event['winner_id']==3 ? 'checked' : ''?>></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-                <input type="submit" value="Save" class="btn btn-block btn-success">
+            <form class="form-vertical" id="login-form" action="/user/login" method="post">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <fieldset>
+                                <div class="form-group">
+                                    <h2>Log In</h2>
+                                    <hr>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label>Username</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="control-group flat-group">
+                                            <input class="form-control" placeholder="Username" name="username" id="username" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label>Password</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="control-group flat-group">
+                                            <input class="form-control" placeholder="Password" name="password" id="password" type="password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3" style="text-align: right;"></div>
+                                    <div class="col-md-9">
+                                        <button class="btn btn-success" type="submit"><i class="fa fa-sign-in fa-fw"></i>Log in</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <!-- </form> -->
+                        </div>
+                        <br>
+                    </div>
             </form>
         </div>
     </div>

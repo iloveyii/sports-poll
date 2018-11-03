@@ -28,7 +28,19 @@ $router->post('/posts/create', function ( \App\Models\IRequest $request) {
     $controller->create();
 });
 
+/**
+ * Serve user pages
+ */
+$router->get('/user/login', function ($request) {
+    $controller = new \App\Controllers\UserController($request);
+    $controller->login();
+});
 
+
+
+/**
+ * Server events pages
+ */
 $router->get('/events/index', function ($request) {
     $controller = new \App\Controllers\EventController($request);
     $controller->indexPage();
