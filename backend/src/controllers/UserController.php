@@ -20,36 +20,20 @@ class UserController extends Controller
      */
     public function create()
     {
-        $winningIds = [
-            'home'=>1,
-            'draw'=>2,
-            'away'=>3
-        ];
+        $model = new User();
+        $attributes = $this->request->body();
 
-        if($this->request->isPost()) {
-            $vote = new \App\Models\Vote();
-            $posts = $this->request->body();
-
-            foreach ($posts as $var => $value) {
-                $arr = explode('_', $var);
-                $event_id = $arr[1];
-                $user_id = 1;
-                $winner_id = $winningIds[$value];
-                $attributes = [
-                    'event_id' => $event_id,
-                    'user_id' => $user_id,
-                    'winner_id' => $winner_id
-                ];
-
-                $vote->setAttributes($attributes)->create();
+        if($this->request->isPost() && $model->setAttributes($attributes)->validate() && $model->create() ) {
+            if($model->login()) {
+                header("Location: /events/index");
+                exit;
+            } else {
+                header("Location: /user/login");
+                exit;
             }
-            header("Location: /events/index");
-
         }
 
-        $model = new Event();
-        $events = $model->readAllByRandomGroupName();
-        $this->render('index', $events);
+        $this->render('create', $model);
     }
 
     /**
@@ -96,4 +80,5 @@ class UserController extends Controller
         $model->logout();
         header("Location: /user/login");
     }
+
 }

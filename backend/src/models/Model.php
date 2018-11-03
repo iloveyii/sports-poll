@@ -123,6 +123,11 @@ abstract class Model
                             $validation[$varName][] = "{$varName} max length is {$ruleName}";
                         }
                         break;
+                    case 'shouldMatchProperty':
+                        if($this->{$varName} !== $this->{$ruleName}) {
+                            $validation[$varName][] = "{$varName} should match {$ruleName}";
+                        }
+                        break;
                 }
             }
         }

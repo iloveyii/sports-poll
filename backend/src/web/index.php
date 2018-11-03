@@ -43,6 +43,14 @@ $router->get('/user/logout', function ($request) {
     $controller = new \App\Controllers\UserController($request);
     $controller->logout();
 });
+$router->get('/user/signup', function ($request) {
+    $controller = new \App\Controllers\UserController($request);
+    $controller->create();
+});
+$router->post('/user/signup', function ($request) {
+    $controller = new \App\Controllers\UserController($request);
+    $controller->create();
+});
 
 /**
  * Server events pages

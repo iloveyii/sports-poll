@@ -16,33 +16,15 @@
     <script src="/assets/js/lib/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Simple Blog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarColor03">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/posts/index">Index <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/posts/create">Create</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
-
+<?php
+$dirPath = realpath(dirname(dirname(__FILE__)));
+include_once "{$dirPath}/layout/navbar.php";
+?>
 <div class="container">
 
     <div class="row">
         <div class="col-md-12">
-            <h2>Create a post</h2>
+            <h2>User Signup</h2>
             <br />
         </div>
     </div>
@@ -61,18 +43,21 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form class="form-group" action="/posts/create" method="post">
+            <form class="form-group" action="/user/signup" method="post">
                 <div class="form-group">
-                    <label class="form-control-label" for="title">Title</label>
-                    <input type="text" name="title" placeholder="Type title of the post" class="form-control is-valid" id="title" value="<?=$model->title?>">
+                    <label class="form-control-label" for="title">Username</label>
+                    <input type="text" name="username" placeholder="Type username" class="form-control is-valid" id="username" value="<?=$model->username?>">
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="description">Description</label>
-                    <textarea rows="8" cols="50" name="description" placeholder="Type description" class="form-control is-valid" id="author" > <?=$model->description?> </textarea>
+                    <label class="form-control-label" for="description">Password</label>
+                    <input type="password" name="password" placeholder="Type password" class="form-control is-valid" id="password" value="<?=$model->password?>">
                 </div>
-
+                <div class="form-group">
+                    <label class="form-control-label" for="description">Verify Password</label>
+                    <input type="password" name="verifyPassword" placeholder="Verify password" class="form-control is-valid" id="verifyPassword" value="<?=$model->verifyPassword?>">
+                </div>
                 <br />
-                <button type="submit" class="btn btn-outline-secondary">Add</button>
+                <button type="submit" class="btn btn-outline-secondary">Sign up</button>
             </form>
         </div>
     </div>

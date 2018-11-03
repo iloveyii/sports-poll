@@ -11,6 +11,7 @@ class User extends Model
     public $id;
     public $username;
     public $password;
+    public $verifyPassword;
 
     /**
      * @var string
@@ -35,6 +36,7 @@ class User extends Model
         $this->id = isset($attributes['id'])  ? $attributes['id'] : null;
         $this->username = $attributes['username'];
         $this->password = $attributes['password'];
+        $this->verifyPassword = isset($attributes['verifyPassword']) ? $attributes['verifyPassword'] : -1;
         $this->isNewRecord = $this->id === null ? true : false;
         return $this;
     }
@@ -47,8 +49,9 @@ class User extends Model
     {
         return [
             'id' => ['integer'],
-            'username' => ['string', 'minLength'=>5, 'maxLength'=>140, 'alpha'],
-            'password' => ['string', 'minLength'=>3, 'maxLength'=>80,],
+            'username' => ['string', 'minLength'=>3, 'maxLength'=>140, 'alpha'],
+            'password' => ['string', 'minLength'=>3, 'maxLength'=>80],
+            'verifyPassword' => ['string', 'minLength'=>3, 'maxLength'=>80, 'shouldMatchProperty'=>'password'],
         ];
     }
 

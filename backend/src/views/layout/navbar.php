@@ -17,6 +17,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/user/login">Login <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/signup">Sign up <span class="sr-only">(current)</span></a>
+                    </li>
                 <?php endif; ?>
             </li>
         </ul>
