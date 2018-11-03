@@ -29,6 +29,7 @@ class Vote extends Model
     /**
      * Pass request object to this method to set the object attributes
      * @param array $attributes
+     * @return $this
      */
     public function setAttributes($attributes)
     {
@@ -65,7 +66,9 @@ class Vote extends Model
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
         UNIQUE KEY unique_vote_polled (event_id, user_id)
         );";
-        return Database::connect()->exec($createTable);
+        $result = Database::connect()->exec($createTable);
+        Log::write("Created table $this->tableName", INFO);
+        return $result;
     }
 
     // CRUD

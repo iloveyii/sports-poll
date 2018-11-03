@@ -2,6 +2,9 @@
 require_once 'vendor/autoload.php';
 require_once 'config/app.php';
 
+// Clear previous log files if any
+\App\Models\Log::clear();
+
 /**
  * Create table event and import all data from json file
  */

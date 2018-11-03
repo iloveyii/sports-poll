@@ -41,6 +41,22 @@ class Log
         return false;
     }
 
+    private static function getFilePath()
+    {
+        $dirPath = realpath(dirname(dirname(__FILE__)));
+        $filePath = sprintf("%s/%s/%s", $dirPath, 'web', self::$fileName);
+        return $filePath;
+    }
+
+    public static function clear()
+    {
+        $filePath = self::getFilePath();
+        if(file_exists($filePath)) {
+            unlink($filePath);
+            Log::write("Cleared log file", INFO);
+        }
+    }
+
     /**
      * This is the function that actually does I/O
      *
@@ -54,9 +70,8 @@ class Log
         date_default_timezone_set('Europe/Stockholm');
         $levelName = self::$errorLevels[$level];
         $line = sprintf("%s\t%s\t%s%s", $levelName, date('Y-m-d h:i:s', time()), $message, PHP_EOL);
-        $dirPath = realpath(dirname(dirname(__FILE__)));
 
-        $filePath = sprintf("%s/%s/%s", $dirPath, 'web', self::$fileName);
+        $filePath = self::getFilePath();
 
         if(is_writable(dirname($filePath)) ) {
 

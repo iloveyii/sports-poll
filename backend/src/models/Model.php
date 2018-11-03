@@ -45,7 +45,9 @@ abstract class Model
     public function dropTable() : bool
     {
         $dropTable = "DROP TABLE IF EXISTS {$this->tableName}";
-        return Database::connect()->exec($dropTable);
+        $result = Database::connect()->exec($dropTable);
+        Log::write("Dropped table $this->tableName", INFO);
+        return $result;
     }
 
     /**

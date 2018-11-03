@@ -35,14 +35,19 @@ class Winner extends Model
         $createTable = "CREATE TABLE $this->tableName(
         id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         name CHAR( 10 ) );";
-        return Database::connect()->exec($createTable);
+        $result = Database::connect()->exec($createTable);
+        Log::write("Created table $this->tableName", INFO);
+        return $result;
+
     }
 
     // CRUD
     public function create(): bool
     {
         $query = sprintf("INSERT INTO %s (name) VALUES (:name)", $this->tableName );
-        return Database::connect()->insert($query, [':name'=>$this->name]);
+        $result = Database::connect()->insert($query, [':name'=>$this->name]);
+        Log::write("Inserted {$this->name} as a new row into table {$this->tableName}", INFO);
+        return $result;
     }
     public function read($id = null): array
     {

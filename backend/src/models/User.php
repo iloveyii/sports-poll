@@ -60,7 +60,9 @@ class User extends Model
         username CHAR( 10 ), 
         password CHAR( 60 )
         );";
-        return Database::connect()->exec($createTable);
+        $result = Database::connect()->exec($createTable);
+        Log::write("Created table $this->tableName", INFO);
+        return $result;
     }
 
     // CRUD
@@ -75,7 +77,12 @@ class User extends Model
         $query = sprintf("INSERT INTO %s (username, password) 
                                  VALUES (:username, :password)", $this->tableName);
         $params = [':username'=>$this->username, ':password'=>password_hash($this->password, PASSWORD_BCRYPT)];
-        return Database::connect()->insert($query, $params);
+        $result = Database::connect()->insert($query, $params);
+        Log::write("Inserted user {$this->username} into table $this->tableName", INFO);
+
+        return $result;
+
+
     }
 
     /**

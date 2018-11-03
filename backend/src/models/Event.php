@@ -72,7 +72,10 @@ class Event extends Model
             $model->setAttributes($event);
             $model->create();
         }
-        return count($events);
+        $num = count($events);
+        Log::write("Inserted $num rows in table $this->tableName", INFO);
+
+        return $num;
     }
 
     private function readJsonFile()
@@ -117,7 +120,9 @@ class Event extends Model
         state VARCHAR( 40 ) NOT NULL,
         createdAt DATETIME NOT NULL);";
 
-        return Database::connect()->exec($sql);
+        $result = Database::connect()->exec($sql);
+        Log::write("Created table $this->tableName", INFO);
+        return $result;
     }
 
     // CRUD
