@@ -7,26 +7,9 @@ use App\Models\Request;
 
 /**
  * First create router object with params Request object and default route
- */
-$router = new Router(new Request, '/events/index');
-
-/**
  * Next declare the http methods
  */
-$router->get('/posts/index', function ($request) {
-    $controller = new \App\Controllers\PostController($request);
-    $controller->index();
-});
-
-$router->get('/posts/create', function ( \App\Models\IRequest $request) {
-    $controller = new \App\Controllers\PostController($request);
-    $controller->create();
-});
-
-$router->post('/posts/create', function ( \App\Models\IRequest $request) {
-    $controller = new \App\Controllers\PostController($request);
-    $controller->create();
-});
+$router = new Router(new Request, '/events/index');
 
 /**
  * Serve user pages
@@ -53,16 +36,18 @@ $router->post('/user/signup', function ($request) {
 });
 
 /**
- * Server events pages
+ * Serve events pages
  */
 $router->get('/events/index', function ($request) {
     $controller = new \App\Controllers\EventController($request);
-    $controller->indexPage();
+    $controller->index();
 });
 
-
-$router->post('/events/create', function ($request) {
-    $controller = new \App\Controllers\EventController($request);
+/**
+ * Serve vote pages / requests
+ */
+$router->post('/vote/create', function ($request) {
+    $controller = new \App\Controllers\VoteController($request);
     $controller->create();
 });
 
@@ -72,13 +57,13 @@ $router->post('/events/create', function ($request) {
 $router->get('/api/v1/events', function ($request) {
     header("Content-Type: application/json");
     $controller = new \App\Controllers\EventController($request);
-    $result = $controller->index();
+    $result = $controller->all();
     echo json_encode($result);;
 });
 
 $router->get('/api/v1/random', function ($request) {
     header("Content-Type: application/json");
     $controller = new \App\Controllers\EventController($request);
-    $result = $controller->random();
+    $result = $controller->byRandomCategory();
     echo json_encode($result);;
 });

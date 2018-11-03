@@ -16,6 +16,7 @@ class Controller
      *
      * @param $view - is the name of the view file without .php extension
      * @param $model - is the model (eg Post )
+     * @return bool
      */
     public function render($view, $model)
     {
@@ -24,6 +25,8 @@ class Controller
         $prefix = strtolower( str_replace('Controller', '', $className) );
         $dirPath = realpath(dirname(dirname(__FILE__)));
         require_once "$dirPath/views/{$prefix}/{$view}.php";
+
+        return true;
     }
 
 }

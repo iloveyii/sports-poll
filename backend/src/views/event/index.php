@@ -22,7 +22,7 @@ include_once "{$dirPath}/layout/navbar.php";
     <div class="row">
         <div class="col-md-12">
             <br />
-            <form action="/events/create" method="post">
+            <form action="/vote/create" method="post">
                 <table class="table table-hover" id="posts-index-table">
                 <thead>
                 <tr>

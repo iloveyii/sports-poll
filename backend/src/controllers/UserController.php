@@ -18,7 +18,7 @@ class UserController extends Controller
      * It the HTTP request is a post then it save it to DB
      * And redirects to index page
      */
-    public function create()
+    public function create() : string
     {
         $model = new User();
         $attributes = $this->request->body();
@@ -37,48 +37,34 @@ class UserController extends Controller
     }
 
     /**
-     * Returns the index page
+     * Does use login
+     * @return bool
      */
-    public function indexPage()
-    {
-        $model = new Event();
-        $events = $model->readAllByRandomGroupName();
-        $this->render('index', $events);
-    }
-
-    /**
-     * Returns the list of events
-     */
-    public function index()
-    {
-        $model = new Event();
-        $events = $model->readAll();
-        return ['events'=>$events];
-    }
-
-    /**
-     * Returns a rows by random group name
-     */
-    public function login()
+    public function login() : bool
     {
         $model = new User();
 
         if($this->request->isPost()) {
             $params = $this->request->body();
             if($model->setAttributes($params)->validate() && $model->login()) {
-                header("Location: /events/random");
-                exit;
+                header("Location: /events/index");
+                return true;
             }
 
         }
-        $this->render('login', $model);
+        return $this->render('login', $model);
     }
 
-    public function logout()
+    /**
+     * Does user logout
+     * @return bool
+     */
+    public function logout() : bool
     {
         $model = new User();
         $model->logout();
         header("Location: /user/login");
+        return true;
     }
 
 }

@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\Event;
 use App\Models\User;
-use Couchbase\UserSettings;
 
 class EventController extends Controller
 {
@@ -16,49 +15,10 @@ class EventController extends Controller
         $this->request = $request;
     }
 
-
-    /**
-     * Returns the form page for new post entry
-     * It the HTTP request is a post then it save it to DB
-     * And redirects to index page
-     */
-    public function create()
-    {
-        $winningIds = [
-            'home'=>1,
-            'draw'=>2,
-            'away'=>3
-        ];
-
-        if($this->request->isPost()) {
-            $vote = new \App\Models\Vote();
-            $posts = $this->request->body();
-
-            foreach ($posts as $var => $value) {
-                $arr = explode('_', $var);
-                $event_id = $arr[1];
-                $user_id = User::getLoggedInUserId();
-                $winner_id = $winningIds[$value];
-                $attributes = [
-                    'event_id' => $event_id,
-                    'user_id' => $user_id,
-                    'winner_id' => $winner_id
-                ];
-
-                $vote->setAttributes($attributes)->create();
-            }
-            header("Location: /events/index");
-        }
-
-        $model = new Event();
-        $events = $model->readAllByRandomGroupName();
-        $this->render('index', $events);
-    }
-
     /**
      * Returns the index page
      */
-    public function indexPage()
+    public function index()
     {
         if( ! User::isLoggedIn()) {
             header("Location: /user/login");
@@ -69,9 +29,9 @@ class EventController extends Controller
     }
 
     /**
-     * Returns the list of events
+     * Returns the list of all events
      */
-    public function index()
+    public function all()
     {
         $model = new Event();
         $events = $model->readAll();
@@ -79,11 +39,12 @@ class EventController extends Controller
     }
 
     /**
-     * Returns a rows by random group name
+     * Returns rows by random group name
+     * @return array
      */
-    public function random()
+    public function byRandomCategory() : array
     {
         $model = new Event();
-        return $model->readAllByRandomGroupName();
+        return $model->readAllByRandomCategoryName();
     }
 }
