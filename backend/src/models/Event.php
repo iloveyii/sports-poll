@@ -79,8 +79,13 @@ class Event extends Model
     {
         $dirPath = realpath( dirname(dirname(__FILE__)) . '/' . self::DATA_DIR );
         $filePath = sprintf("%s/%s", $dirPath, self::JSON_FILE);
-        $fileContents = file_get_contents($filePath);
-        return json_decode($fileContents, true);
+        if( file_exists($filePath) ) {
+            $fileContents = file_get_contents($filePath);
+            return json_decode($fileContents, true);
+        }
+
+        Log::write("File {$filePath} does not exist", WARN);
+        return [];
     }
 
 

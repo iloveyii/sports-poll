@@ -12,7 +12,7 @@ class Log
     /**
      * @var string
      */
-    private static $fileName = 'log.txt';
+    private static $fileName = 'error.log';
     /**
      * @var array
      */
