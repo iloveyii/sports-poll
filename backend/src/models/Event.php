@@ -182,7 +182,7 @@ class Event extends Model
                                  LEFT JOIN 
                                  ( SELECT event_id, user_id, winner_id FROM vote WHERE user_id = %d ) t1
                                  ON event.id = t1.event_id
-                                 WHERE %s=:categoryName", self::CATEGORY_COLUMN_NAME, $this->tableName, $userId, self::CATEGORY_COLUMN_NAME);
+                                 WHERE %s=:categoryName ORDER BY name", self::CATEGORY_COLUMN_NAME, $this->tableName, $userId, self::CATEGORY_COLUMN_NAME);
         $params = [':categoryName' => $randomCategoryName];
         $rows = Database::connect()->selectAll($query, $params);
         return $rows;

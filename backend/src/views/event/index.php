@@ -29,11 +29,6 @@ include_once "{$dirPath}/layout/navbar.php";
             <h2>List of events</h2>
             <br />
             <h4 id="event"><?=$model[0]['categoryName']?></h4>
-
-            <div class="checkbox icheck-primary">
-                <input type="radio" id="someCheckboxId" />
-                <label for="someCheckboxId"></label>
-            </div>
         </div>
     </div>
 

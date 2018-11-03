@@ -36,7 +36,7 @@ class User extends Model
         $this->id = isset($attributes['id'])  ? $attributes['id'] : null;
         $this->username = $attributes['username'];
         $this->password = $attributes['password'];
-        $this->verifyPassword = isset($attributes['verifyPassword']) ? $attributes['verifyPassword'] : -1;
+        $this->verifyPassword = isset($attributes['verifyPassword']) ? $attributes['verifyPassword'] : null;
         $this->isNewRecord = $this->id === null ? true : false;
         return $this;
     }

@@ -124,7 +124,7 @@ abstract class Model
                         }
                         break;
                     case 'shouldMatchProperty':
-                        if($this->{$varName} !== $this->{$ruleName}) {
+                        if( ( ! is_null($this->{$varName}) ) &&  ($this->{$varName} !== $this->{$ruleName}) ) {
                             $validation[$varName][] = "{$varName} should match {$ruleName}";
                         }
                         break;
