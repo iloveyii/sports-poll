@@ -4,19 +4,26 @@ This exercise is expected to take 7 to 15 hours to complete.
 1. Create a backend for Sports Poll. The backend should be created using either
 Node.js or PHP, select the framework you prefer. Whichever framework you select
 will not impact the way we assess your test.
+>>>>> Done
 2. At start, fetch the events from the JSON file and store them in a local database of
 your choice.
+>>>>> Done
 3. Create a backend API to read events.
+>>>>> Done
 4. Create registration/login for the Sports Poll. It could be either with regular email
 address or Facebook login.
+>>>>> Done with username
 5. Create a backend API for voting for events (home win, draw, away win), keep track
 of the votes. Only allow logged users to vote and don’t allow more than one vote
 per user for each event.
+>>>>> Done with html page
 6. Create a page with the best design practices in mind for this small application. The
 design will be taken into consideration and should be visually pleasant and user
 friendly.
+>>>>> Done
 7. You are free to use any modern javascript framework that you’d like.
 8. It’s not allowed to use any CSS framework like Bootstrap or similar.
 9. The page should be responsive and work well across different types of devices
 (desktop, mobile, tablet).
+>>>>> Done
 10. Add a couple of automated tests.
