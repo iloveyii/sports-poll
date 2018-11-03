@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 
 use App\Models\Event;
+use App\Models\User;
 
 class EventController extends Controller
 {
@@ -58,8 +59,11 @@ class EventController extends Controller
      */
     public function indexPage()
     {
+        if( ! User::isLoggedIn()) {
+            header("Location: /user/login");
+        }
         $model = new Event();
-        $events = $model->readAllByRandomCategoryName();
+        $events = $model->readAllByRandomCategoryName($_SESSION['user_id']);
         $this->render('index', $events);
     }
 
