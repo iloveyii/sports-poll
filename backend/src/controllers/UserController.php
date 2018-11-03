@@ -78,6 +78,22 @@ class UserController extends Controller
     public function login()
     {
         $model = new User();
+
+        if($this->request->isPost()) {
+            $params = $this->request->body();
+            if($model->setAttributes($params)->validate() && $model->login()) {
+                header("Location: /events/random");
+                exit;
+            }
+
+        }
         $this->render('login', $model);
+    }
+
+    public function logout()
+    {
+        $model = new User();
+        $model->logout();
+        header("Location: /user/login");
     }
 }

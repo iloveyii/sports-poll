@@ -35,8 +35,14 @@ $router->get('/user/login', function ($request) {
     $controller = new \App\Controllers\UserController($request);
     $controller->login();
 });
-
-
+$router->post('/user/login', function ($request) {
+    $controller = new \App\Controllers\UserController($request);
+    $controller->login();
+});
+$router->get('/user/logout', function ($request) {
+    $controller = new \App\Controllers\UserController($request);
+    $controller->logout();
+});
 
 /**
  * Server events pages

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Set error reporting in dev mode
  */
@@ -29,3 +30,4 @@ define('CRITICAL', 3);
 define('ALL', 4);
 
 define('ERROR_LOG_LEVEL', ALL);
+

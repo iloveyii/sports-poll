@@ -47,8 +47,8 @@ class User extends Model
     {
         return [
             'id' => ['integer'],
-            'title' => ['string', 'minLength'=>5, 'maxLength'=>140, 'alpha'],
-            'description' => ['string', 'minLength'=>15, 'maxLength'=>800, 'stripTags'],
+            'username' => ['string', 'minLength'=>5, 'maxLength'=>140, 'alpha'],
+            'password' => ['string', 'minLength'=>3, 'maxLength'=>80,],
         ];
     }
 
@@ -63,6 +63,41 @@ class User extends Model
         $result = Database::connect()->exec($createTable);
         Log::write("Created table $this->tableName", INFO);
         return $result;
+    }
+
+
+    public function login()
+    {
+        $query = sprintf("SELECT * FROM %s  
+                                 WHERE username = :username", $this->tableName);
+        $params = [':username'=>$this->username];
+        $user = Database::connect()->selectOne($query, $params);
+        if(isset($user) && password_verify($this->password, $user['password'])) {
+            Log::write("User $this->username logged in successfully", INFO);
+            $_SESSION['user_id'] = $user['id'];
+            return true;
+        }
+        Log::write("User {$this->username} failed to login", INFO);
+        $this->errors['login'][0] = 'Username or password incorrect';
+        return false;
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        unset($_SESSION);
+    }
+
+    public static function isLoggedIn()
+    {
+        return isset($_SESSION['user_id']);
+    }
+
+    public static function getLoggedInUsername()
+    {
+        $model = new User();
+        $user = $model->read($_SESSION['user_id']);
+        return isset($user) ? $user['username'] : 'NA';
     }
 
     // CRUD
@@ -81,9 +116,8 @@ class User extends Model
         Log::write("Inserted user {$this->username} into table $this->tableName", INFO);
 
         return $result;
-
-
     }
+
 
     /**
      * Reads all posts from db into associative array
@@ -99,7 +133,10 @@ class User extends Model
         if($id !== null) {
             $query = sprintf("SELECT * FROM %s WHERE id=:id", $this->tableName);
             $params = [':id'=>$id];
+            $row = Database::connect()->selectOne($query, $params);
+            return $row;
         }
+
         $rows = Database::connect()->selectAll($query, $params);
 
         return $rows;

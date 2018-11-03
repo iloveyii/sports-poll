@@ -46,7 +46,6 @@ class EventController extends Controller
                 $vote->setAttributes($attributes)->create();
             }
             header("Location: /events/index");
-
         }
 
         $model = new Event();
