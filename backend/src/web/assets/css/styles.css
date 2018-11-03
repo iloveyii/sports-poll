@@ -7,6 +7,12 @@ td span input {
 .table th, .table td {
 	padding: 1.5rem 0 !important;
 }
+
+.table td label {
+    text-align: center !important;
+    display: block !important;
+}
+
 .table th {
     font-size: 1rem !important;
     font-family: sans-serif !important;

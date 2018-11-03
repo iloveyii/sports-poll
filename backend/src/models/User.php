@@ -100,7 +100,12 @@ class User extends Model
     {
         $model = new User();
         $user = $model->read($_SESSION['user_id']);
-        return isset($user) ? $user['username'] : 'NA';
+        return isset($user) && count($user) > 0 ? $user['username'] : 'NA';
+    }
+
+    public static function getLoggedInUserId()
+    {
+        return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     }
 
     // CRUD
@@ -137,7 +142,7 @@ class User extends Model
             $query = sprintf("SELECT * FROM %s WHERE id=:id", $this->tableName);
             $params = [':id'=>$id];
             $row = Database::connect()->selectOne($query, $params);
-            return $row;
+            return $row === false ? [] : $row;
         }
 
         $rows = Database::connect()->selectAll($query, $params);

@@ -48,9 +48,9 @@ include_once "{$dirPath}/layout/navbar.php";
                     <?php foreach ($model as $event) : ?>
                     <tr>
                         <td><?=$event['name']?></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="home" <?=isset($event['winner_id']) && $event['winner_id']==1 ? 'checked' : ''?>></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="draw" <?=isset($event['winner_id']) && $event['winner_id']==2 ? 'checked' : ''?>></td>
-                        <td><input type="radio" name="radio_<?=$event['id']?>" value="away" <?=isset($event['winner_id']) && $event['winner_id']==3 ? 'checked' : ''?>></td>
+                        <td><label for="home"><input type="radio" name="radio_<?=$event['id']?>" value="home" <?=isset($event['winner_id']) && $event['winner_id']==1 ? 'checked' : ''?>></label></td>
+                        <td><label for="home"><input type="radio" name="radio_<?=$event['id']?>" value="draw" <?=isset($event['winner_id']) && $event['winner_id']==2 ? 'checked' : ''?>></label></td>
+                        <td><label for="home"><input type="radio" name="radio_<?=$event['id']?>" value="away" <?=isset($event['winner_id']) && $event['winner_id']==3 ? 'checked' : ''?>></label></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

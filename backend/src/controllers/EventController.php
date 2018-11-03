@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Event;
 use App\Models\User;
+use Couchbase\UserSettings;
 
 class EventController extends Controller
 {
@@ -36,7 +37,7 @@ class EventController extends Controller
             foreach ($posts as $var => $value) {
                 $arr = explode('_', $var);
                 $event_id = $arr[1];
-                $user_id = 1;
+                $user_id = User::getLoggedInUserId();
                 $winner_id = $winningIds[$value];
                 $attributes = [
                     'event_id' => $event_id,
