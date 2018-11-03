@@ -27,7 +27,7 @@ include_once "{$dirPath}/layout/navbar.php";
         <div class="col-md-12">
             <h2>List of events</h2>
             <br />
-            <h4 id="event"><?=$model[0]['groupName']?></h4>
+            <h4 id="event"><?=$model[0]['categoryName']?></h4>
         </div>
     </div>
 
@@ -55,7 +55,9 @@ include_once "{$dirPath}/layout/navbar.php";
                     <?php endforeach; ?>
                 </tbody>
             </table>
-                <input type="submit" value="Save" class="btn btn-block btn-success">
+                <div class="form-group float-right">
+                    <input type="submit" value="Poll" class="btn btn-lg btn-success">
+                </div>
             </form>
         </div>
     </div>

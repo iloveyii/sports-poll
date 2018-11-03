@@ -59,7 +59,7 @@ class EventController extends Controller
     public function indexPage()
     {
         $model = new Event();
-        $events = $model->readAllByRandomGroupName();
+        $events = $model->readAllByRandomCategoryName();
         $this->render('index', $events);
     }
 

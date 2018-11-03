@@ -7,6 +7,7 @@ class Event extends Model
 {
     const DATA_DIR = 'data';
     const JSON_FILE = 'test-assignment.json';
+    const CATEGORY_COLUMN_NAME = 'sport';
 
     /**
      * @var null|int
@@ -166,23 +167,23 @@ class Event extends Model
         return $rows;
     }
 
-    public function getRandomGroupName()
+    public function getRandomCategoryName()
     {
-        $rand = sprintf("SELECT %s FROM %s ORDER BY RAND() LIMIT 1", 'groupName', $this->tableName);
+        $rand = sprintf("SELECT %s AS categoryName FROM %s ORDER BY RAND() LIMIT 1", self::CATEGORY_COLUMN_NAME, $this->tableName);
         $rows = Database::connect()->selectAll($rand, []);
 
-        return $rows[0]['groupName'];
+        return is_array($rows)  ? $rows[0]['categoryName'] : null;
     }
 
-    public function readAllByRandomGroupName()
+    public function readAllByRandomCategoryName()
     {
-        $randomGroupName = $this->getRandomGroupName();
-        $query = sprintf("SELECT * FROM %s 
+        $randomCategoryName = $this->getRandomCategoryName();
+        $query = sprintf("SELECT *, %s AS categoryName  FROM %s 
                                  LEFT JOIN 
                                  ( SELECT event_id, user_id, winner_id FROM vote WHERE user_id = %d ) t1
                                  ON event.id = t1.event_id
-                                 WHERE groupName=:groupName", $this->tableName, 1);
-        $params = [':groupName'=>$randomGroupName];
+                                 WHERE %s=:categoryName", self::CATEGORY_COLUMN_NAME, $this->tableName, 1, self::CATEGORY_COLUMN_NAME);
+        $params = [':categoryName' => $randomCategoryName];
         $rows = Database::connect()->selectAll($query, $params);
         return $rows;
     }

@@ -29,7 +29,7 @@ include_once "{$dirPath}/layout/navbar.php";
             if($model->hasErrors()) {
                 $errors = $model->getErrors();
                 $dirPath = realpath(dirname(dirname(__FILE__)));
-                include_once "{$dirPath}/post/errors.php";
+                include_once "{$dirPath}/layout/errors.php";
             }
             ?>
         </div>
