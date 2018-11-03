@@ -76,7 +76,14 @@ class Log
         if(is_writable(dirname($filePath)) ) {
 
             try {
-                return file_put_contents($filePath, $line, FILE_APPEND | LOCK_EX);
+                if( file_exists($filePath)) {
+                    $result = file_put_contents($filePath, $line, FILE_APPEND | LOCK_EX);
+                } else {
+                    $result = file_put_contents($filePath, $line, FILE_APPEND | LOCK_EX);
+                    chmod($filePath, 0777);
+                }
+                return $result;
+
             } catch (exception $e) {
                 throw new \Exception($e->getMessage());
             }

@@ -8,7 +8,6 @@ class EventController extends Controller
 {
     const DATA_DIR = 'data';
     const JSON_FILE = 'test-assignment.json';
-    private $request;
 
     public function __construct($request)
     {
