@@ -101,9 +101,6 @@ class Event extends Model
     public function rules() : array
     {
         return [
-            'id' => ['integer'],
-            'title' => ['string', 'minLength'=>5, 'maxLength'=>140, 'alpha'],
-            'description' => ['string', 'minLength'=>15, 'maxLength'=>800, 'stripTags'],
         ];
     }
 
