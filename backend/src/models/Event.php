@@ -5,15 +5,30 @@ namespace App\Models;
 
 class Event extends Model
 {
+    /**
+     * Name of the directory which contains json file
+     */
     const DATA_DIR = 'data';
+    /**
+     * Name of the json file for events
+     */
     const JSON_FILE = 'test-assignment.json';
+    /**
+     * Name of the database column on which to group the events and show to user in poll
+     */
     const CATEGORY_COLUMN_NAME = 'sport';
+    /**
+     * If a poll is submitted for an event should we repeat it with the pre selected values ?
+     */
     const REPEAT_CATEGORY_POLL = false;
 
     /**
      * @var null|int
      */
     public $id;
+    /**
+     * @var string
+     */
     public $objectId;
 
     /**
@@ -29,6 +44,9 @@ class Event extends Model
     public $sport;
     public $country;
     public $state;
+    /**
+     * @var dateTime
+     */
     public $createdAt;
 
     /**

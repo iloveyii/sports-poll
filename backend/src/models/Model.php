@@ -30,12 +30,25 @@ abstract class Model
      * @return array
      */
     abstract public function rules() : array ;
-    abstract public function setAttributes($attribues);
+
+    /**
+     * This is used to set the model properties from associate array passed
+     * @param $attributes
+     * @return mixed
+     */
+    abstract public function setAttributes($attributes);
+
+    /**
+     * This function creates the table
+     * @return bool
+     */
     abstract public function createTable() : bool;
+
     // CRUD
     abstract public function create() : bool;
     abstract public function read($id=null) : array;
     abstract public function update() : bool;
+
 
     /**
      * Drops table
@@ -64,6 +77,9 @@ abstract class Model
     }
 
     /**
+     * This is validation method and you can add more validators here
+     * Validator which has no associative key is compared in the first switch
+     * Whereas validator with an associative key is compared in the second switch statement, because both key, value are significant
      * @return bool
      */
     public function validate() : bool
