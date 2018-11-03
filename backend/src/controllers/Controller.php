@@ -5,6 +5,10 @@ namespace App\Controllers;
 
 class Controller
 {
+    /**
+     * @var $request
+     */
+    protected $request;
 
     /**
      * This method renders a view page
