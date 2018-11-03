@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/custom.min.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/bantikyan/icheck-bootstrap/master/icheck-bootstrap.min.css">
 
     <script src="/assets/js/lib/modernizr-2.6.2.min.js"></script>
 </head>
@@ -28,6 +29,11 @@ include_once "{$dirPath}/layout/navbar.php";
             <h2>List of events</h2>
             <br />
             <h4 id="event"><?=$model[0]['categoryName']?></h4>
+
+            <div class="checkbox icheck-primary">
+                <input type="radio" id="someCheckboxId" />
+                <label for="someCheckboxId"></label>
+            </div>
         </div>
     </div>
 
@@ -39,18 +45,33 @@ include_once "{$dirPath}/layout/navbar.php";
                 <thead>
                 <tr>
                     <th>Event</th>
-                    <th>Home Wins</th>
-                    <th>Draw</th>
-                    <th>Away Wins</th>
+                    <th><div for="home">Home Wins</div></th>
+                    <th><div for="home">Draw</div></th>
+                    <th><div for="home">Away Wins</div></th>
                 </tr>
                 </thead>
                 <tbody class="post-index">
                     <?php foreach ($model as $event) : ?>
                     <tr>
                         <td><?=$event['name']?></td>
-                        <td><label for="home"><input type="radio" name="radio_<?=$event['id']?>" value="home" <?=isset($event['winner_id']) && $event['winner_id']==1 ? 'checked' : ''?>></label></td>
-                        <td><label for="home"><input type="radio" name="radio_<?=$event['id']?>" value="draw" <?=isset($event['winner_id']) && $event['winner_id']==2 ? 'checked' : ''?>></label></td>
-                        <td><label for="home"><input type="radio" name="radio_<?=$event['id']?>" value="away" <?=isset($event['winner_id']) && $event['winner_id']==3 ? 'checked' : ''?>></label></td>
+                        <td>
+                            <div class="radio icheck-success" for="home">
+                                <input type="radio" name="radio_<?=$event['id']?>" id="home_<?=$event['id']?>" value="home" <?=isset($event['winner_id']) && $event['winner_id']==1 ? 'checked' : ''?>>
+                                <label for="home_<?=$event['id']?>"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="radio icheck-success" for="draw">
+                                <input type="radio" name="radio_<?=$event['id']?>" id="draw_<?=$event['id']?>" value="draw" <?=isset($event['winner_id']) && $event['winner_id']==2 ? 'checked' : ''?>>
+                                <label for="draw_<?=$event['id']?>"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="radio icheck-success" for="home">
+                                <input type="radio" name="radio_<?=$event['id']?>" id="away_<?=$event['id']?>" value="away" <?=isset($event['winner_id']) && $event['winner_id']==3 ? 'checked' : ''?>>
+                                <label for="away_<?=$event['id']?>"></label>
+                            </div>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

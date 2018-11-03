@@ -8,7 +8,7 @@ td span input {
 	padding: 1.5rem 0 !important;
 }
 
-.table td label {
+.table th div, .table td div {
     text-align: center !important;
     display: block !important;
 }
