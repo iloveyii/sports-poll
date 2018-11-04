@@ -190,7 +190,6 @@ class Event extends Model
      */
     public function getRandomCategoryName($userId)
     {
-        $rand = sprintf("SELECT %s AS categoryName FROM %s ORDER BY RAND() LIMIT 1", self::CATEGORY_COLUMN_NAME, $this->tableName);
         $rand = "SELECT sport FROM category WHERE sport NOT IN ( SELECT sport from user_voted_sport WHERE user_voted_sport.user_id = :id ) ORDER BY RAND() LIMIT 1;";
         $rows = Database::connect()->selectOne($rand, [':id'=>$userId]);
 

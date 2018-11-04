@@ -49,14 +49,36 @@ class Winner extends Model
         Log::write("Inserted {$this->name} as a new row into table {$this->tableName}", INFO);
         return $result;
     }
-    public function read($id = null): array
+
+
+    /**
+     * Reads all winners from db into associative array
+     * @param null | integer $id
+     * @return array
+     * @throws \Exception
+     */
+    public function read( $id = null) : array
     {
-        $sql = "SELECT * FROM $this->tableName";
-        return Database::connect()->selectAll($sql, []);
+        $query = sprintf("SELECT * FROM %s", $this->tableName);
+        $params = [];
+
+        if($id !== null) {
+            $query = sprintf("SELECT * FROM %s WHERE id=:id", $this->tableName);
+            $params = [':id'=>$id];
+            $row = Database::connect()->selectOne($query, $params);
+            return $row === false ? [] : $row;
+        }
+
+        $rows = Database::connect()->selectAll($query, $params);
+
+        return $rows;
     }
+
     public function update(): bool
     {
         // TODO: Implement update() method.
     }
+
+
 
 }
