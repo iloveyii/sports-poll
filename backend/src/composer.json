@@ -5,5 +5,8 @@
           "App\\Interfaces\\":"interfaces/",
           "App\\Controllers\\":"controllers/"
       }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.4"
   }
 }
