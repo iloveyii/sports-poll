@@ -51,7 +51,8 @@ class Winner extends Model
     }
     public function read($id = null): array
     {
-        // TODO: Implement read() method.
+        $sql = "SELECT * FROM $this->tableName";
+        return Database::connect()->selectAll($sql, []);
     }
     public function update(): bool
     {
