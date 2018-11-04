@@ -20,7 +20,7 @@ class Event extends Model
     /**
      * If a poll is submitted for an event should we repeat it with the pre selected values ?
      */
-    const REPEAT_CATEGORY_POLL = false;
+    const REPEAT_CATEGORY_POLL = true;
 
     /**
      * @var null|int
@@ -183,17 +183,23 @@ class Event extends Model
         return $rows;
     }
 
-    public function getRandomCategoryName()
+    /**
+     * Really random and faster
+     * @return null
+     * @throws \Exception
+     */
+    public function getRandomCategoryName($userId)
     {
         $rand = sprintf("SELECT %s AS categoryName FROM %s ORDER BY RAND() LIMIT 1", self::CATEGORY_COLUMN_NAME, $this->tableName);
-        $rows = Database::connect()->selectAll($rand, []);
+        $rand = "SELECT sport FROM category WHERE sport NOT IN ( SELECT sport from user_voted_sport WHERE user_voted_sport.user_id = :id ) ORDER BY RAND() LIMIT 1;";
+        $rows = Database::connect()->selectOne($rand, [':id'=>$userId]);
 
-        return is_array($rows)  ? $rows[0]['categoryName'] : null;
+        return is_array($rows) && count($rows) > 0 ? $rows['sport'] : null;
     }
 
     public function readAllByRandomCategoryName($userId=1)
     {
-        $randomCategoryName = $this->getRandomCategoryName();
+        $randomCategoryName = $this->getRandomCategoryName($userId);
         $query = sprintf("SELECT *, %s AS categoryName  FROM %s 
                                  LEFT JOIN 
                                  ( SELECT event_id, user_id, winner_id FROM vote WHERE user_id = %d ) t1

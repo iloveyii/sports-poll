@@ -2,6 +2,8 @@
 require_once 'vendor/autoload.php';
 require_once 'config/app.php';
 
+use App\Models\Database;
+
 // Clear previous log files if any
 \App\Models\Log::clear();
 
@@ -55,4 +57,28 @@ if(! NO_DUMMY_DATA) {
     printf("Inserted 1 dummy row in table %s. " . PHP_EOL, $vote->tableName);
 }
 
+
+/**
+ * Create a VIEW for distinct sport ( as category for poll )
+ */
+$sqlCategoryDrop = "DROP VIEW IF EXISTS category";
+Database::connect()->exec($sqlCategoryDrop);
+$sqlCategory = "CREATE VIEW category AS SELECT DISTINCT sport from event;";
+Database::connect()->exec($sqlCategory);
+printf("Created view category. " . PHP_EOL);
+echo PHP_EOL;
+
+
+/**
+ * Create a VIEW user_voted_sport which contains category for which user has voted
+ * So the user would not poll on category for which he/she has voted already
+ */
+$sqlUserVotedSportDrop = "DROP VIEW IF EXISTS user_voted_sport";
+Database::connect()->exec($sqlUserVotedSportDrop);
+$sqlUserVotedSport = "CREATE VIEW user_voted_sport AS SELECT DISTINCT sport, vote.user_id FROM event 
+INNER JOIN vote
+ON event.id = vote.event_id;";
+Database::connect()->exec($sqlUserVotedSport);
+printf("Created view user_voted_sport. " . PHP_EOL);
+echo PHP_EOL;
 

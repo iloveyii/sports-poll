@@ -49,9 +49,9 @@ class User extends Model
     {
         return [
             'id' => ['integer'],
-            'username' => ['string', 'minLength'=>3, 'maxLength'=>140, 'alpha'],
-            'password' => ['string', 'minLength'=>3, 'maxLength'=>80],
-            'verifyPassword' => ['string', 'minLength'=>3, 'maxLength'=>80, 'shouldMatchProperty'=>'password'],
+            'username' => ['string', 'minLength'=>3, 'maxLength'=>40, 'alpha'],
+            'password' => ['string', 'minLength'=>3, 'maxLength'=>60],
+            'verifyPassword' => ['string', 'minLength'=>3, 'maxLength'=>60, 'shouldMatchProperty'=>'password'],
         ];
     }
 
@@ -60,7 +60,7 @@ class User extends Model
     {
         $createTable = "CREATE TABLE $this->tableName(
         id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        username CHAR( 10 ), 
+        username CHAR( 40 ), 
         password CHAR( 60 )
         );";
         $result = Database::connect()->exec($createTable);
