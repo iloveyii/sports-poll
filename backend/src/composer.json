@@ -6,7 +6,6 @@
           "App\\Controllers\\":"controllers/"
       },
       "classmap": [
-        "src/"
       ]
   },
   "require-dev": {
