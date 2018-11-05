@@ -56,7 +56,7 @@ if(! NO_DUMMY_DATA) {
     $vote->setAttributes($attributes)->create();
     printf("Inserted 1 dummy row in table %s. " . PHP_EOL, $vote->tableName);
 }
-
+echo PHP_EOL;
 
 /**
  * Create a VIEW for distinct sport ( as category for poll )
