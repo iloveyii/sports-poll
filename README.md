@@ -69,6 +69,7 @@ DEMO is here [DEMO](http://sportspoll.softhem.se).
 Bellow the directory structure used:
 
 ```
+
    |-backend
    |--src
    |---config
@@ -91,7 +92,7 @@ Bellow the directory structure used:
    |-frontend
    |--src
    
- ```
+```
 
 ## Requirements
    * The application has been tested with apache2 virtual hosts so it is recommended.
