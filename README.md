@@ -88,13 +88,17 @@ Bellow the directory structure used:
    |---web
    |----index.php
    |----assets
+   |-frontend
+   |--src
    
  ```
 
 ## Requirements
+   * The application has been tested with apache2 virtual hosts so it is recommended.
    * You need to enable mode rewrite and use the file `.htaccess` in the web directory.
-   * Make web directory writeable for web server user (www-data in apache), to enable logging.
-   * Disable displaying errors in config/app.php
+   * Point your web server ( wwwwroot ) to backend/src/web directory for the backend application.
+   * Make web directory writable for web server user (www-data in apache), to enable logging.
+   * Disable displaying errors in config/app.php.
    * PHP 7.2
    * Apache 2
    * MySql 5.6
