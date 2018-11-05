@@ -27,6 +27,11 @@ class VoteController extends Controller
         ];
 
         if($this->request->isPost()) {
+            if( ! User::isLoggedIn()) {
+                header("Location: /user/login");
+                exit;
+            }
+
             /**
              * Define a vote model
              */
