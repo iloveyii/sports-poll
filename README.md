@@ -96,7 +96,7 @@ Bellow the directory structure used:
 ## Requirements
    * The application has been tested with apache2 virtual hosts so it is recommended.
    * You need to enable mode rewrite and use the file `.htaccess` in the web directory.
-   * Point your web server ( wwwwroot ) to backend/src/web directory for the backend application.
+   * Point your web server ( wwwroot ) to backend/src/web directory for the backend application.
    * Make web directory writable for web server user (www-data in apache), to enable logging.
    * Disable displaying errors in config/app.php.
    * PHP 7.2
