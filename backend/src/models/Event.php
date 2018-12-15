@@ -98,7 +98,7 @@ class Event extends Model
         return $num;
     }
 
-    private function readJsonFile()
+    private function readJsonFile() : array
     {
         $dirPath = realpath( dirname(dirname(__FILE__)) . '/' . self::DATA_DIR );
         $filePath = sprintf("%s/%s", $dirPath, self::JSON_FILE);
@@ -128,10 +128,10 @@ class Event extends Model
         $sql = "CREATE TABLE $this->tableName(
         id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         objectId CHAR( 10 ),
-        homeName VARCHAR( 80 ) NOT NULL,
-        awayName VARCHAR( 80 ) NOT NULL,
-        name VARCHAR( 180 ) NOT NULL,
-        groupName VARCHAR( 40 ) NOT NULL,
+        homeName VARCHAR( 80 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+        awayName VARCHAR( 80 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+        name VARCHAR( 180 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+        groupName VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
         sport VARCHAR( 40 ) NOT NULL,
         country VARCHAR( 40 ) NOT NULL,
         state VARCHAR( 40 ) NOT NULL,
