@@ -107,5 +107,8 @@ Bellow the directory structure used:
    * Apache 2
    * MySql 5.6
    
+## Testing
+  * To run the php unit tests, inside backend/src run `phpunit ` .
+  
 <i>Web development has never been so fun.</i>  
 [Hazrat Ali](http://blog.softhem.se/) 
