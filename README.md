@@ -29,14 +29,13 @@ This framework is useful for a light PHP web application or RESTFull API applica
      
 ## Setup and first run
 
-  * First clone the repository.
+  * Clone the repository `git clone git@bitbucket.org:iloveyii/sports-poll.git`.
+  * Run composer install `composer install`.
   * Then run composer command `composer dump-autoload`.
   * Create a database (manually for now) and adjust the database credentials in the `config/app.php` file as per your environment.
   * Run the init command to create the database table as `php init.php`.
-  * Point web browser to backend/src/web directory or Create a virtual host using [vh](http://softhem.se/tools/vh) and browse [http://sportspoll.loc](http://sportspoll.loc) (default: username: admin, password: admin).
-```
- vh new sportspoll -p ~/sportspoll/backend/src/web
-```  
+  * Point web browser to backend/src/web directory or Create a virtual host using [vh](http://softhem.se/tools/vh) `vh new sportspoll -p ~/sportspoll/backend/src/web`
+  * Browse to [http://sportspoll.loc](http://sportspoll.loc) (default: username: admin, password: admin).
   
 For more information about using Composer please see its [documentation](http://getcomposer.org/doc/).
 
