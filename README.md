@@ -7,6 +7,8 @@ This framework does not use any built in libraries or packages. All code is cust
 
 This framework is useful for a light PHP web application or RESTFull API application. This has been used on site [Simple Blog](http://alip.softhem.se).
 
+![Screenshot](http://sportspoll.softhem.se/screenshot.png)
+
 ## What has been done
    * We have developed a backend application in PHP which serves the API requests. We have used a small PHP MVC framework
      called [Alip](http://github.com/iloveyii/alip).  
